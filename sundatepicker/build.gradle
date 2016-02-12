@@ -26,7 +26,7 @@ publish {
     groupId = 'com.alirezaafkar'
     artifactId = 'sundatepicker'
     uploadName = 'SunDatePicker'
-    website = 'https://github.com/alirezaafkar/sundate_picker'
+    website = 'https://github.com/alirezaafkar/sundatepicker'
 }
 
 dependencies {
