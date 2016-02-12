@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="RtlHardcoded">
+
+    <TextView
+        android:id="@+id/year"
+        style="@style/DialogTitle"
+        android:layout_width="140dp"
+        android:layout_alignParentRight="true"
+        android:paddingBottom="5dp"
+        android:textSize="@dimen/text_large"/>
+
+    <TextView
+        android:id="@+id/cancel"
+        style="@style/ButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/cancel"/>
+
+    <TextView
+        android:id="@+id/done"
+        style="@style/ButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/cancel"
+        android:padding="@dimen/dialog_padding"
+        android:text="@string/ok"/>
+
+    <TextView
+        android:id="@+id/date"
+        style="@style/DialogTitle"
+        android:layout_width="140dp"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/done"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/year"
+        android:paddingTop="0dp"
+        android:textSize="@dimen/text_x_large"/>
+
+    <FrameLayout
+        android:id="@+id/frame_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/done"
+        android:layout_toLeftOf="@id/date"/>
+
+</RelativeLayout>

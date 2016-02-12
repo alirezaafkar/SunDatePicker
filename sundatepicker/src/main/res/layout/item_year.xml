@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="@dimen/year_padding"
+    android:layout_height="wrap_content">
+
+    <com.alirezaafkar.sundatepicker.components.SquareTextView
+        android:id="@+id/text"
+        android:layout_width="@dimen/year_width"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:background="@drawable/item_background"
+        android:gravity="center"
+        android:padding="@dimen/year_padding"
+        android:textSize="@dimen/text_x_large"/>
+
+</FrameLayout>

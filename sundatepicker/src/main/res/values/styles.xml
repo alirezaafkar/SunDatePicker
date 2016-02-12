@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DialogTheme" parent="Theme.AppCompat.Light.Dialog.MinWidth">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textColor">@color/item_text_color</item>
+        <item name="nextIcon">@drawable/ic_navigate_next_black_24dp</item>
+        <item name="beforeIcon">@drawable/ic_navigate_before_black_24dp</item>
+    </style>
+
+    <style name="DarkDialogTheme" parent="Theme.AppCompat.Dialog.MinWidth">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+        <item name="android:textColor">@color/item_text_color_dark</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="nextIcon">@drawable/ic_navigate_next_white_24dp</item>
+        <item name="beforeIcon">@drawable/ic_navigate_before_white_24dp</item>
+    </style>
+
+    <style name="DialogTitle" parent="Base.TextAppearance.AppCompat.Title.Inverse">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:paddingTop">@dimen/dialog_padding</item>
+        <item name="android:paddingLeft">@dimen/dialog_padding</item>
+        <item name="android:paddingRight">@dimen/dialog_padding</item>
+        <item name="android:paddingBottom">@dimen/dialog_padding</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:background">?selectableItemBackground</item>
+        <item name="android:textColor">?colorPrimary</item>
+    </style>
+
+    <style name="NextButton" parent="ButtonStyle">
+        <item name="android:src">?nextIcon</item>
+    </style>
+
+    <style name="BeforeButton" parent="ButtonStyle">
+        <item name="android:src">?beforeIcon</item>
+    </style>
+
+</resources>
