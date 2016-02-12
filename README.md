@@ -3,7 +3,7 @@ Date picker for Iranian calendar
 
 ## Screenshots
 
-<img src="/Preview.JPG"/>
+<img src="/Preview.jpg" width="400" height="400"/>
 
 
 ##Getting started
