@@ -59,7 +59,7 @@ public class DateItem {
         return minYear;
     }
 
-    public void setMinYear(int maxMonth) {
+    public void setMinYear(int minYear) {
         this.minYear = minYear;
     }
 
