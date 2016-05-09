@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">SunDatePicker</string>
-    <string name="ok">تائید</string>
-    <string name="cancel">انصراف</string>
+    <string name="ok_btn">تائید</string>
+    <string name="cancel_btn">انصراف</string>
 </resources>

@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:text="@string/cancel"/>
+        android:text="@string/cancel_btn"/>
 
     <TextView
         android:id="@+id/done"
@@ -31,7 +31,7 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@id/cancel"
         android:padding="@dimen/dialog_padding"
-        android:text="@string/ok"/>
+        android:text="@string/ok_btn"/>
 
     <TextView
         android:id="@+id/date"

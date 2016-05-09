@@ -20,11 +20,14 @@ import com.alirezaafkar.sundatepicker.fragments.YearFragment;
 import com.alirezaafkar.sundatepicker.interfaces.DateInterface;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 /**
  * Created by Alireza Afkar on 2/5/16 AD.
  */
+@SuppressWarnings("NewInstance")
 public class DatePicker extends DialogFragment
         implements OnClickListener, DateInterface {
     private TextView mDate;
@@ -77,6 +80,11 @@ public class DatePicker extends DialogFragment
             return this;
         }
 
+        /**
+         * @param day   Iranian day
+         * @param month Iranian month
+         * @param year  Iranian year
+         */
         public Builder date(int day, int month, int year) {
             this.dateItem.setDate(day, month, year);
             return this;
@@ -87,6 +95,18 @@ public class DatePicker extends DialogFragment
             return this;
         }
 
+        public Builder date(Calendar calendar) {
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            JDF jdf = new JDF(year, month, day);
+            this.dateItem.setDate(jdf);
+            return this;
+        }
+
+        /**
+         * @param feature false means max date is today
+         */
         public Builder feature(boolean feature) {
             dateItem.setFeatureDisabled(!feature);
             return this;
@@ -214,10 +234,13 @@ public class DatePicker extends DialogFragment
 
     public void updateDisplay() {
         mYear.setText(String.valueOf(mDateItem.getYear()));
-        mDate.setText(String.format("%s ، %d %s", getDayName(),
-                mDateItem.getDay(), getMonthName()));
+        mDate.setText(String.format(Locale.US, "%s ، %d %s",
+                getDayName(), mDateItem.getDay(), getMonthName()));
     }
 
+    /**
+     * @return Persian month name
+     */
     public String getMonthName() {
         return getMonths()[mDateItem.getMonth() - 1];
     }
@@ -227,12 +250,19 @@ public class DatePicker extends DialogFragment
         return getWeekDays()[day];
     }
 
+    /**
+     * @param day Iranian day
+     */
     @Override
     public void setDay(int day) {
         mDateItem.setDay(day);
         updateDisplay();
     }
 
+    /**
+     * @param day   Iranian day
+     * @param month Iranian month
+     */
     @Override
     public void setDay(int day, int month) {
         mDateItem.setDay(day);
@@ -240,50 +270,78 @@ public class DatePicker extends DialogFragment
         updateDisplay();
     }
 
+    /**
+     * @param month Iranian month
+     */
     @Override
     public void setMonth(int month) {
         mDateItem.setMonth(month);
         updateDisplay();
     }
 
+    /**
+     * @param year Iranian year
+     */
     @Override
     public void setYear(int year) {
         mDateItem.setYear(year);
         updateDisplay();
     }
 
+    /**
+     * @param day   Iranian day
+     * @param month Iranian month
+     * @param year  Iranian year
+     */
     @Override
     public void setDate(int day, int month, int year) {
         mDateItem.setDate(day, month, year);
         updateDisplay();
     }
 
+    /**
+     * @return returns Iranian day
+     */
     @Override
     public int getDay() {
         return mDateItem.getDay();
     }
 
+    /**
+     * @return returns Iranian month
+     */
     @Override
     public int getMonth() {
         return mDateItem.getMonth();
     }
 
+    /**
+     * @return returns Iranian year
+     */
     @Override
     public int getYear() {
         return mDateItem.getYear();
     }
 
+    /**
+     * @return returns Persian week days
+     */
+
     @Override
     public String[] getWeekDays() {
         if (mWeekDays == null)
-            mWeekDays = getResources().getStringArray(R.array.week_days);
+            mWeekDays = getResources().getStringArray(R.array.persian_week_days);
         return mWeekDays;
     }
+
+    /**
+     * @return returns Persian months
+     */
 
     @Override
     public String[] getMonths() {
         if (mMonths == null)
-            mMonths = getResources().getStringArray(R.array.months);
+            mMonths = getResources().getStringArray(R.array.persian_months);
         return mMonths;
     }
 }

@@ -1,7 +1,7 @@
 package com.alirezaafkar.sundatepicker.components;
 
 import java.text.ParseException;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 
 /**
  * Created by Alireza Afkar on 2/5/16 AD.
@@ -103,13 +103,13 @@ public class DateItem {
         }
     }
 
-    public GregorianCalendar getCalendar() {
-        GregorianCalendar calendar = null;
-        try {
-            calendar = new JDF().getGregorianCalendar(year, month - 1, day - 1);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+    public Calendar getCalendar() {
+        JDF jdf = new JDF();
+        jdf.setIranianDate(year, month, day);
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(jdf.getGregorianYear(),
+                jdf.getGregorianMonth(),
+                jdf.getGregorianDay());
         return calendar;
     }
 }

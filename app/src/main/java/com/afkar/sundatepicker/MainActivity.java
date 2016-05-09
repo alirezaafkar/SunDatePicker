@@ -112,10 +112,12 @@ public class MainActivity extends FragmentActivity implements
     class Date extends DateItem {
         String getDate() {
             Calendar calendar = getCalendar();
-            return getYear() + "/" + getMonth() + "/" + getDay() + "  ("
-                    + calendar.get(Calendar.YEAR) + "/"
-                    + calendar.get(Calendar.MONTH) + "/"
-                    + calendar.get(Calendar.DAY_OF_MONTH) + ")";
+            return String.format(Locale.US,
+                    "%d/%d/%d (%d/%d/%d)",
+                    getYear(), getMonth(), getDay(),
+                    calendar.get(Calendar.YEAR),
+                    +calendar.get(Calendar.MONTH),
+                    +calendar.get(Calendar.DAY_OF_MONTH));
         }
     }
 }

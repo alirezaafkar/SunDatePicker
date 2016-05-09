@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string-array name="week_days">
+    <string-array name="persian_week_days">
         <item>شنبه</item>
         <item>یکشنبه</item>
         <item>دوشنبه</item>
@@ -10,7 +10,7 @@
         <item>جمعه</item>
     </string-array>
 
-    <string-array name="months">
+    <string-array name="persian_months">
         <item>فروردین</item>
         <item>اردبیهشت</item>
         <item>خرداد</item>
