@@ -96,11 +96,7 @@ public class DatePicker extends DialogFragment
         }
 
         public Builder date(Calendar calendar) {
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            int month = calendar.get(Calendar.MONTH);
-            int year = calendar.get(Calendar.YEAR);
-            JDF jdf = new JDF(year, month, day);
-            this.dateItem.setDate(jdf);
+            this.dateItem.setDate(new JDF(calendar));
             return this;
         }
 
