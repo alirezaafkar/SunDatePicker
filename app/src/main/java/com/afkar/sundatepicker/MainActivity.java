@@ -16,6 +16,7 @@ import com.alirezaafkar.sundatepicker.components.DateItem;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -29,7 +30,7 @@ public class MainActivity extends FragmentActivity implements
     private Button mEnd;
     private Button mStart;
     private CheckBox mDark;
-    private CheckBox mFeature;
+    private CheckBox mFuture;
 
     private Date mEndDate;
     private Date mStartDate;
@@ -52,7 +53,7 @@ public class MainActivity extends FragmentActivity implements
         mEnd = (Button) findViewById(R.id.endDate);
         mStart = (Button) findViewById(R.id.startDate);
         mDark = (CheckBox) findViewById(R.id.darkTheme);
-        mFeature = (CheckBox) findViewById(R.id.future);
+        mFuture = (CheckBox) findViewById(R.id.future);
 
         mEndDate = new Date();
         mStartDate = new Date();
@@ -72,7 +73,7 @@ public class MainActivity extends FragmentActivity implements
                 .Builder()
                 .id(id)
                 .theme(theme)
-                .feature(mFeature.isChecked());
+                .future(mFuture.isChecked());
 
         if (v.getId() == R.id.startDate)
             builder.date(mStartDate.getDay(), mStartDate.getMonth(), mStartDate.getYear());

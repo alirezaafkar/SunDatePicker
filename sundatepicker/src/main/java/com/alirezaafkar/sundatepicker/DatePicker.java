@@ -101,10 +101,10 @@ public class DatePicker extends DialogFragment
         }
 
         /**
-         * @param feature false means max date is today
+         * @param future false means max date is today
          */
-        public Builder feature(boolean feature) {
-            dateItem.setFeatureDisabled(!feature);
+        public Builder future(boolean future) {
+            dateItem.setFutureDisabled(!future);
             return this;
         }
 
@@ -141,7 +141,7 @@ public class DatePicker extends DialogFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        checkFeature();
+        checkFuture();
         mDate.performClick();
     }
 
@@ -162,8 +162,8 @@ public class DatePicker extends DialogFragment
         return view;
     }
 
-    private void checkFeature() {
-        if (!mDateItem.isFeatureDisabled()) {
+    private void checkFuture() {
+        if (!mDateItem.isFutureDisabled()) {
             mDateItem.setMaxMonth(0);
             return;
         }
