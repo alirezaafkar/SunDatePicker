@@ -16,7 +16,6 @@ import com.alirezaafkar.sundatepicker.components.DateItem;
 import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -117,7 +116,7 @@ public class MainActivity extends FragmentActivity implements
                     "%d/%d/%d (%d/%d/%d)",
                     getYear(), getMonth(), getDay(),
                     calendar.get(Calendar.YEAR),
-                    +calendar.get(Calendar.MONTH),
+                    +calendar.get(Calendar.MONTH) + 1,
                     +calendar.get(Calendar.DAY_OF_MONTH));
         }
     }
