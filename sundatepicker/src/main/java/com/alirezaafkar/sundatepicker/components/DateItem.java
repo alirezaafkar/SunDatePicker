@@ -13,7 +13,7 @@ public class DateItem {
     private int maxYear;
     private int minYear;
     private int maxMonth;
-    private boolean featureDisabled;
+    private boolean futureDisabled;
 
     public DateItem() {
         setDate(new JDF());
@@ -71,12 +71,12 @@ public class DateItem {
         this.maxYear = maxYear;
     }
 
-    public boolean isFeatureDisabled() {
-        return featureDisabled;
+    public boolean isFutureDisabled() {
+        return futureDisabled;
     }
 
-    public void setFeatureDisabled(boolean featureDisabled) {
-        this.featureDisabled = featureDisabled;
+    public void setFutureDisabled(boolean futureDisabled) {
+        this.futureDisabled = futureDisabled;
     }
 
     public void setDate(JDF jdf) {
@@ -108,7 +108,7 @@ public class DateItem {
         jdf.setIranianDate(year, month, day);
         Calendar calendar = Calendar.getInstance();
         calendar.set(jdf.getGregorianYear(),
-                jdf.getGregorianMonth(),
+                jdf.getGregorianMonth()-1,
                 jdf.getGregorianDay());
         return calendar;
     }

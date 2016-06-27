@@ -29,7 +29,7 @@ public class MainActivity extends FragmentActivity implements
     private Button mEnd;
     private Button mStart;
     private CheckBox mDark;
-    private CheckBox mFeature;
+    private CheckBox mFuture;
 
     private Date mEndDate;
     private Date mStartDate;
@@ -52,7 +52,7 @@ public class MainActivity extends FragmentActivity implements
         mEnd = (Button) findViewById(R.id.endDate);
         mStart = (Button) findViewById(R.id.startDate);
         mDark = (CheckBox) findViewById(R.id.darkTheme);
-        mFeature = (CheckBox) findViewById(R.id.future);
+        mFuture = (CheckBox) findViewById(R.id.future);
 
         mEndDate = new Date();
         mStartDate = new Date();
@@ -72,7 +72,7 @@ public class MainActivity extends FragmentActivity implements
                 .Builder()
                 .id(id)
                 .theme(theme)
-                .feature(mFeature.isChecked());
+                .future(mFuture.isChecked());
 
         if (v.getId() == R.id.startDate)
             builder.date(mStartDate.getDay(), mStartDate.getMonth(), mStartDate.getYear());
@@ -116,7 +116,7 @@ public class MainActivity extends FragmentActivity implements
                     "%d/%d/%d (%d/%d/%d)",
                     getYear(), getMonth(), getDay(),
                     calendar.get(Calendar.YEAR),
-                    +calendar.get(Calendar.MONTH),
+                    +calendar.get(Calendar.MONTH) + 1,
                     +calendar.get(Calendar.DAY_OF_MONTH));
         }
     }
