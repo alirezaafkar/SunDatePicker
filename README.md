@@ -9,7 +9,7 @@ Date picker for Iranian calendar
   <img alt="Android app on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" />
 </a>
 
-##Getting started
+## Getting started
 
 ### Dependency
 
@@ -30,7 +30,7 @@ dependencies {
             .show(getSupportFragmentManager(), "");
 ```
 
-#Licence
+# Licence
 
     Copyright 2016 Alireza Afkar
     
