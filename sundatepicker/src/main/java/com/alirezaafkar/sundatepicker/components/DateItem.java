@@ -128,7 +128,7 @@ public class DateItem {
         jdf.setIranianDate(year, month, day);
         Calendar calendar = Calendar.getInstance();
         calendar.set(jdf.getGregorianYear(),
-                jdf.getGregorianMonth(),
+                jdf.getGregorianMonth()-1,
                 jdf.getGregorianDay());
         return calendar;
     }
