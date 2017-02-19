@@ -20,6 +20,8 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     private static final int TYPE_TITLE = 1;
     private static final int TYPE_NONE = 2;
 
+    private int mYear;
+    private int mCurrentYear;
     private int mMonth;
     private JDF mToday;
     private int mStartDay;
@@ -28,28 +30,31 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     private View.OnClickListener mOnClickListener;
 
     public MonthAdapter(DateInterface callback, View.OnClickListener onClickListener,
-                        int currentMonth, int maxMonth) {
+                        int currentMonth, int maxMonth,int chosenYear) {
         mMaxMonth = maxMonth;
         mCallback = callback;
+        mYear=chosenYear;
         mMonth = currentMonth;
         mOnClickListener = onClickListener;
 
         mToday = new JDF();
         try {
-            mStartDay = new JDF().getIranianDay(mCallback.getYear(), mMonth + 1, 1);
+            mStartDay = new JDF().getIranianDay(mYear, mMonth + 1, 1);
+            mCurrentYear=mToday.getIranianYear();
         } catch (ParseException ignored) {
         }
     }
 
     private boolean isSelected(int day) {
         return mCallback.getMonth() == mMonth + 1 &&
-                mCallback.getDay() == day + 1;
+                mCallback.getDay() == day + 1 &&
+            mCallback.getYear()==mYear;
     }
 
     private boolean isToday(int day) {
         return (mMonth + 1 == mToday.getIranianMonth()
                 && day + 1 == mToday.getIranianDay()
-                && mCallback.getYear() == mToday.getIranianYear());
+                && mYear == mToday.getIranianYear());
     }
 
     @Override
@@ -104,10 +109,10 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         int days = 30;
         if (mMonth < 6)
             days = 31;
-        if (mMonth == 11 && !JDF.isLeapYear(mCallback.getYear()))
+        if (mMonth == 11 && !JDF.isLeapYear(mYear))
             days = 29;
 
-        if (mMaxMonth == mMonth + 1)
+        if (mMaxMonth == mMonth + 1 &&mYear==mCurrentYear)
             days = mToday.getIranianDay();
 
         return days + 7 + mStartDay;
@@ -127,7 +132,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
             int position = getDayIndex(getLayoutPosition());
             if (mCallback != null && position >= 0) {
                 int oldMonth = mCallback.getMonth();
-                mCallback.setDay(position + 1, mMonth + 1);
+                mCallback.setDay(position + 1, mMonth + 1,mYear);
                 if (oldMonth != mMonth + 1) {
                     mOnClickListener.onClick(view);
                 } else {

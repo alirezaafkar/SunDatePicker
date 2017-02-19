@@ -14,6 +14,8 @@ public class DateItem {
     private int minYear;
     private int maxMonth;
     private boolean futureDisabled;
+    private boolean showYearFirst;
+    private boolean closeYearAutomatically;
 
     public DateItem() {
         setDate(new JDF());
@@ -79,6 +81,24 @@ public class DateItem {
         this.futureDisabled = futureDisabled;
     }
 
+
+    public boolean shouldShowYearFirst() {
+        return showYearFirst;
+    }
+
+    public void setShowYearFirst(boolean showYearFirst) {
+        this.showYearFirst = showYearFirst;
+    }
+
+
+    public boolean shouldCloseYearAutomatically() {
+        return closeYearAutomatically;
+    }
+
+    public void setCloseYearAutomatically(boolean closeYearAutomatically) {
+        this.closeYearAutomatically = closeYearAutomatically;
+    }
+
     public void setDate(JDF jdf) {
         setDate(jdf.getIranianDay(), jdf.getIranianMonth(), jdf.getIranianYear());
     }
@@ -108,7 +128,7 @@ public class DateItem {
         jdf.setIranianDate(year, month, day);
         Calendar calendar = Calendar.getInstance();
         calendar.set(jdf.getGregorianYear(),
-                jdf.getGregorianMonth()-1,
+                jdf.getGregorianMonth(),
                 jdf.getGregorianDay());
         return calendar;
     }
