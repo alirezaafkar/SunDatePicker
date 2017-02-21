@@ -29,7 +29,7 @@ import java.util.Locale;
  */
 @SuppressWarnings("NewInstance")
 public class DatePicker extends DialogFragment
-        implements OnClickListener, DateInterface {
+    implements OnClickListener, DateInterface {
     private TextView mDate;
     private TextView mYear;
 
@@ -108,6 +108,22 @@ public class DatePicker extends DialogFragment
             return this;
         }
 
+        /**
+         * @param shouldShowYearFirst true means show year fragment first
+         */
+        public Builder showYearFirst(boolean shouldShowYearFirst) {
+            dateItem.setShowYearFirst(shouldShowYearFirst);
+            return this;
+        }
+
+        /**
+         * @param shouldCloseYearAutomatically true means show month fragment automatically after choosing a year
+         */
+        public Builder closeYearAutomatically(boolean shouldCloseYearAutomatically) {
+            dateItem.setCloseYearAutomatically(shouldCloseYearAutomatically);
+            return this;
+        }
+
         public Builder theme(@StyleRes int theme) {
             this.theme = theme;
             return this;
@@ -142,12 +158,15 @@ public class DatePicker extends DialogFragment
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         checkFuture();
-        mDate.performClick();
+        if(mDateItem.shouldShowYearFirst())
+            mYear.performClick();
+        else
+            mDate.performClick();
     }
 
     @Override
     public View onCreateView(LayoutInflater layoutInflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup container, Bundle savedInstanceState) {
 
         View view = layoutInflater.inflate(R.layout.dialog_main, container, false);
 
@@ -203,25 +222,25 @@ public class DatePicker extends DialogFragment
         mDate.setSelected(true);
         mYear.setSelected(false);
         switchFragment(MonthFragment.newInstance(DatePicker.this,
-                mDateItem.getMaxMonth()));
+            mDateItem.getMaxMonth()));
     }
 
     private void showYears() {
         mYear.setSelected(true);
         mDate.setSelected(false);
         switchFragment(YearFragment.newInstance(DatePicker.this,
-                mDateItem.getMinYear(), mDateItem.getMaxYear()));
+            mDateItem.getMinYear(), mDateItem.getMaxYear()));
     }
 
     private void onDone() {
         mCallBack.onDateSet(mBuilder.id, mDateItem.getCalendar(),
-                mDateItem.getDay(), mDateItem.getMonth(), mDateItem.getYear());
+            mDateItem.getDay(), mDateItem.getMonth(), mDateItem.getYear());
     }
 
     void switchFragment(Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
         transaction.setCustomAnimations(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+            android.R.anim.fade_out);
         transaction.replace(R.id.frame_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
@@ -231,7 +250,7 @@ public class DatePicker extends DialogFragment
     public void updateDisplay() {
         mYear.setText(String.valueOf(mDateItem.getYear()));
         mDate.setText(String.format(Locale.US, "%s ، %d %s",
-                getDayName(), mDateItem.getDay(), getMonthName()));
+            getDayName(), mDateItem.getDay(), getMonthName()));
     }
 
     /**
@@ -258,11 +277,13 @@ public class DatePicker extends DialogFragment
     /**
      * @param day   Iranian day
      * @param month Iranian month
+     * @param year   Iranian year
      */
     @Override
-    public void setDay(int day, int month) {
+    public void setDay(int day, int month , int year) {
         mDateItem.setDay(day);
         mDateItem.setMonth(month);
+        mDateItem.setYear(year);
         updateDisplay();
     }
 
@@ -281,7 +302,13 @@ public class DatePicker extends DialogFragment
     @Override
     public void setYear(int year) {
         mDateItem.setYear(year);
+        // check if user chosen day is 30 esfand and whether the new chosen year is Kabise or not
+        if(!JDF.isLeapYear(year)&&mDateItem.getMonth()==12&&mDateItem.getDay()==30){
+            mDateItem.setDay(29);
+        }
         updateDisplay();
+        if(mDateItem.shouldCloseYearAutomatically())
+            showMonths();
     }
 
     /**

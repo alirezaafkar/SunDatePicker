@@ -13,11 +13,12 @@
     >
 
     <ImageView
-        android:id="@+id/before"
+        android:id="@+id/next"
+        style="@style/NextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BeforeButton"
         android:scaleType="center"/>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
@@ -26,13 +27,13 @@
         android:gravity="center"
         android:layout_gravity="center"
         android:textColor="?android:textColorPrimary"/>
+
     <ImageView
-        android:id="@+id/next"
-        style="@style/NextButton"
+        android:id="@+id/before"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/BeforeButton"
         android:scaleType="center"/>
-
 
 </LinearLayout>
 

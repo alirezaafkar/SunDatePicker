@@ -25,7 +25,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
  */
 
 public class MainActivity extends FragmentActivity implements
-        OnClickListener, DateSetListener {
+    OnClickListener, DateSetListener {
     private Button mEnd;
     private Button mStart;
     private CheckBox mDark;
@@ -65,14 +65,18 @@ public class MainActivity extends FragmentActivity implements
     public void onClick(View v) {
         int id = v.getId() == R.id.startDate ? 1 : 2;
         @StyleRes int theme = mDark.isChecked()
-                ? R.style.DarkDialogTheme
-                : R.style.DialogTheme;
+            ? R.style.DarkDialogTheme
+            : R.style.DialogTheme;
 
         DatePicker.Builder builder = new DatePicker
-                .Builder()
-                .id(id)
-                .theme(theme)
-                .future(mFuture.isChecked());
+            .Builder()
+            .id(id)
+            .theme(theme)
+            .future(false)
+            //.showYearFirst(true)
+            //.closeYearAutomatically(true)
+            //.minYear(1393)
+            .future(mFuture.isChecked());
 
         if (v.getId() == R.id.startDate)
             builder.date(mStartDate.getDay(), mStartDate.getMonth(), mStartDate.getYear());
@@ -80,7 +84,7 @@ public class MainActivity extends FragmentActivity implements
             builder.date(mEndDate.getCalendar());
 
         builder.build(MainActivity.this)
-                .show(getSupportFragmentManager(), "");
+            .show(getSupportFragmentManager(), "");
     }
 
     @Override
@@ -106,18 +110,18 @@ public class MainActivity extends FragmentActivity implements
         Configuration config = new Configuration();
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,
-                getBaseContext().getResources().getDisplayMetrics());
+            getBaseContext().getResources().getDisplayMetrics());
     }
 
     class Date extends DateItem {
         String getDate() {
             Calendar calendar = getCalendar();
             return String.format(Locale.US,
-                    "%d/%d/%d (%d/%d/%d)",
-                    getYear(), getMonth(), getDay(),
-                    calendar.get(Calendar.YEAR),
-                    +calendar.get(Calendar.MONTH) + 1,
-                    +calendar.get(Calendar.DAY_OF_MONTH));
+                "%d/%d/%d (%d/%d/%d)",
+                getYear(), getMonth(), getDay(),
+                calendar.get(Calendar.YEAR),
+                +calendar.get(Calendar.MONTH) + 1,
+                +calendar.get(Calendar.DAY_OF_MONTH));
         }
     }
 }

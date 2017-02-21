@@ -6,7 +6,7 @@ package com.alirezaafkar.sundatepicker.interfaces;
 public interface DateInterface {
     void setDay(int day);
 
-    void setDay(int day, int month);
+    void setDay(int day, int month,int year);
 
     void setMonth(int month);
 

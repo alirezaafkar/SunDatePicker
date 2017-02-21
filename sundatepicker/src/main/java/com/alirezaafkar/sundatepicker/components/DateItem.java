@@ -14,6 +14,8 @@ public class DateItem {
     private int minYear;
     private int maxMonth;
     private boolean futureDisabled;
+    private boolean showYearFirst;
+    private boolean closeYearAutomatically;
 
     public DateItem() {
         setDate(new JDF());
@@ -77,6 +79,24 @@ public class DateItem {
 
     public void setFutureDisabled(boolean futureDisabled) {
         this.futureDisabled = futureDisabled;
+    }
+
+
+    public boolean shouldShowYearFirst() {
+        return showYearFirst;
+    }
+
+    public void setShowYearFirst(boolean showYearFirst) {
+        this.showYearFirst = showYearFirst;
+    }
+
+
+    public boolean shouldCloseYearAutomatically() {
+        return closeYearAutomatically;
+    }
+
+    public void setCloseYearAutomatically(boolean closeYearAutomatically) {
+        this.closeYearAutomatically = closeYearAutomatically;
     }
 
     public void setDate(JDF jdf) {
