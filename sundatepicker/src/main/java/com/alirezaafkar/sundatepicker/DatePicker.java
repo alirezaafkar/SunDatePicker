@@ -39,8 +39,7 @@ public class DatePicker extends DialogFragment
     private String[] mWeekDays;
     private DateSetListener mCallBack;
 
-    @SuppressLint("ValidFragment")
-    DatePicker() {
+    public DatePicker() {
     }
 
     public static class Builder {
