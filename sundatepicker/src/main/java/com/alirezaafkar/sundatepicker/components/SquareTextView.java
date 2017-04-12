@@ -1,14 +1,14 @@
 package com.alirezaafkar.sundatepicker.components;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.Checkable;
-import android.widget.TextView;
 
 /**
  * Created by Alireza Afkar on 2/11/16 AD.
  */
-public class SquareTextView extends TextView implements Checkable {
+public class SquareTextView extends AppCompatTextView implements Checkable {
     private static final int[] CheckedStateSet = {android.R.attr.state_checked};
 
     private boolean mChecked = false;
