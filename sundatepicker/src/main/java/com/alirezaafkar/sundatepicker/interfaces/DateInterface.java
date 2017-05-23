@@ -20,6 +20,8 @@ public interface DateInterface {
 
     int getYear();
 
+    int getCurrentYear();
+
     String[] getWeekDays();
 
     String[] getMonths();

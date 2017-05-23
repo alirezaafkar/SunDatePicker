@@ -13,12 +13,15 @@ public class DateItem {
     private int maxYear;
     private int minYear;
     private int maxMonth;
+    private int currentYear;
     private boolean futureDisabled;
     private boolean showYearFirst;
     private boolean closeYearAutomatically;
 
     public DateItem() {
-        setDate(new JDF());
+        JDF jdf=new JDF();
+        currentYear=jdf.getIranianYear();
+        setDate(jdf);
     }
 
     public DateItem(int day, int month, int year) {
@@ -81,6 +84,10 @@ public class DateItem {
         this.futureDisabled = futureDisabled;
     }
 
+
+    public int getCurrentYear() {
+        return currentYear;
+    }
 
     public boolean shouldShowYearFirst() {
         return showYearFirst;
