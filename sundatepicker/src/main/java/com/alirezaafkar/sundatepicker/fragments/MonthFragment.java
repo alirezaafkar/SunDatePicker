@@ -103,7 +103,7 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public int getCount() {
-            if (mMaxMonth > 0 && mCurrentYear == mCallback.getYear())
+            if (mMaxMonth > 0 && mCurrentYear == mCallback.getCurrentYear())
                 return mMaxMonth;
             else
                 return mCallback.getMonths().length;

@@ -346,6 +346,14 @@ public class DatePicker extends DialogFragment
     }
 
     /**
+     * used for preventing the calendar to show future dates
+     * @return returns current year according to user device time
+     */
+    @Override public int getCurrentYear() {
+        return mDateItem.getCurrentYear();
+    }
+
+    /**
      * @return returns Persian week days
      */
 
