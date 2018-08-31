@@ -22,4 +22,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     implementation project (":sundatepicker")
+    implementation 'com.android.support:appcompat-v7:' + support_version
 }

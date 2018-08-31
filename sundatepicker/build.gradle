@@ -29,10 +29,6 @@ publish {
     website = 'https://github.com/alirezaafkar/sundatepicker'
 }
 
-ext {
-    support_version = '27.1.0'
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     testImplementation 'junit:junit:4.12'
