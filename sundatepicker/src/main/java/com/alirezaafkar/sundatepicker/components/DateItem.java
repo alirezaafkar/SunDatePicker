@@ -19,8 +19,8 @@ public class DateItem {
     private boolean closeYearAutomatically;
 
     public DateItem() {
-        JDF jdf=new JDF();
-        currentYear=jdf.getIranianYear();
+        JDF jdf = new JDF();
+        currentYear = jdf.getIranianYear();
         setDate(jdf);
     }
 
@@ -135,7 +135,7 @@ public class DateItem {
         jdf.setIranianDate(year, month, day);
         Calendar calendar = Calendar.getInstance();
         calendar.set(jdf.getGregorianYear(),
-                jdf.getGregorianMonth()-1,
+                jdf.getGregorianMonth() - 1,
                 jdf.getGregorianDay());
         return calendar;
     }

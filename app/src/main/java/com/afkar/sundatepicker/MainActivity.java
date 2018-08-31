@@ -4,7 +4,10 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleRes;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -51,6 +54,24 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_help) {
+            ShareCompat.IntentBuilder.from(this)
+                    .setType("message/rfc822")
+                    .addEmailTo("pesiran@gmail.com")
+                    .setSubject("SunDatePicker")
+                    .startChooser();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public void onClick(View v) {
         int id = v.getId() == R.id.startDate ? 1 : 2;
         @StyleRes int theme = mDark.isChecked()
@@ -62,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements
                 .id(id)
                 .theme(theme)
                 .future(false)
+                .setRetainInstance(true)
                 //.showYearFirst(true)
                 //.closeYearAutomatically(true)
                 //.minYear(1393)

@@ -1,5 +1,6 @@
 package com.alirezaafkar.sundatepicker.adapters;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,17 +31,17 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     private View.OnClickListener mOnClickListener;
 
     public MonthAdapter(DateInterface callback, View.OnClickListener onClickListener,
-                        int currentMonth, int maxMonth,int chosenYear) {
+                        int currentMonth, int maxMonth, int chosenYear) {
         mMaxMonth = maxMonth;
         mCallback = callback;
-        mYear=chosenYear;
+        mYear = chosenYear;
         mMonth = currentMonth;
         mOnClickListener = onClickListener;
 
         mToday = new JDF();
         try {
             mStartDay = new JDF().getIranianDay(mYear, mMonth + 1, 1);
-            mCurrentYear=mToday.getIranianYear();
+            mCurrentYear = mToday.getIranianYear();
         } catch (ParseException ignored) {
         }
     }
@@ -48,7 +49,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     private boolean isSelected(int day) {
         return mCallback.getMonth() == mMonth + 1 &&
                 mCallback.getDay() == day + 1 &&
-            mCallback.getYear()==mYear;
+                mCallback.getYear() == mYear;
     }
 
     private boolean isToday(int day) {
@@ -57,16 +58,18 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
                 && mYear == mToday.getIranianYear());
     }
 
+    @NonNull
     @Override
-    public MonthAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MonthAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_day, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(MonthAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MonthAdapter.ViewHolder holder, int position) {
         String text = null;
+        int day = position;
         boolean selected = false;
         boolean clickable = false;
 
@@ -78,14 +81,15 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
             text = mCallback.getWeekDays()[position].substring(0, 1);
         } else if (viewType == TYPE_DAY) {
             clickable = true;
-            position = getDayIndex(position);
-            selected = isSelected(position);
-            text = String.valueOf(position + 1);
+            day = getDayIndex(position);
+            selected = isSelected(day);
+            text = String.valueOf(day + 1);
         }
 
-        holder.mTextView.setChecked(isToday(position));
+        holder.mTextView.setChecked(isToday(day));
         holder.mTextView.setClickable(clickable);
         holder.mTextView.setSelected(selected);
+        holder.mTextView.setEnabled(clickable);
         holder.mTextView.setText(text);
     }
 
@@ -112,7 +116,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         if (mMonth == 11 && !JDF.isLeapYear(mYear))
             days = 29;
 
-        if (mMaxMonth == mMonth + 1 &&mYear==mCurrentYear)
+        if (mMaxMonth == mMonth + 1 && mYear == mCurrentYear)
             days = mToday.getIranianDay();
 
         return days + 7 + mStartDay;
@@ -121,7 +125,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private SquareTextView mTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             mTextView = (SquareTextView) itemView;
             mTextView.setOnClickListener(this);
@@ -130,14 +134,14 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         @Override
         public void onClick(View view) {
             int position = getDayIndex(getLayoutPosition());
-            if (mCallback != null && position >= 0) {
-                int oldMonth = mCallback.getMonth();
-                mCallback.setDay(position + 1, mMonth + 1,mYear);
-                if (oldMonth != mMonth + 1) {
-                    mOnClickListener.onClick(view);
-                } else {
-                    notifyDataSetChanged();
-                }
+            if (mCallback == null || position < 0) return;
+
+            int oldMonth = mCallback.getMonth();
+            mCallback.setDay(position + 1, mMonth + 1, mYear);
+            if (oldMonth != mMonth + 1) {
+                mOnClickListener.onClick(view);
+            } else {
+                notifyDataSetChanged();
             }
         }
     }

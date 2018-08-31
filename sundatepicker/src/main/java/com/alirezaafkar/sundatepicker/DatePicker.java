@@ -1,15 +1,15 @@
 package com.alirezaafkar.sundatepicker;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
@@ -29,15 +29,17 @@ import java.util.Locale;
  */
 @SuppressWarnings("NewInstance")
 public class DatePicker extends DialogFragment
-    implements OnClickListener, DateInterface {
+        implements OnClickListener, DateInterface {
     private TextView mDate;
     private TextView mYear;
+    private TextView mToday;
 
     private Builder mBuilder;
     private String[] mMonths;
     private DateItem mDateItem;
     private String[] mWeekDays;
     private DateSetListener mCallBack;
+    private JDF mTodayDate = new JDF();
 
     public DatePicker() {
     }
@@ -48,6 +50,7 @@ public class DatePicker extends DialogFragment
 
         private int id;
         private DateItem dateItem;
+        private boolean retainInstance;
 
         public Builder() {
             dateItem = new DateItem();
@@ -128,6 +131,11 @@ public class DatePicker extends DialogFragment
             return this;
         }
 
+        public Builder setRetainInstance(boolean retainInstance) {
+            this.retainInstance = retainInstance;
+            return this;
+        }
+
         public DatePicker build(DateSetListener callback) {
             DatePicker datePicker = new DatePicker();
             datePicker.mCallBack = callback;
@@ -140,41 +148,47 @@ public class DatePicker extends DialogFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+        setRetainInstance(mBuilder.retainInstance);
         setStyle(DialogFragment.STYLE_NO_TITLE, mBuilder.theme);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        ViewGroup.LayoutParams params = getDialog().getWindow().getAttributes();
-        params.width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        params.height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setAttributes((WindowManager.LayoutParams) params);
+        Window window = getDialog().getWindow();
+        if (window != null) {
+            ViewGroup.LayoutParams params = window.getAttributes();
+            params.width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
+            params.height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
+            window.setAttributes((WindowManager.LayoutParams) params);
+        }
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         checkFuture();
-        if(mDateItem.shouldShowYearFirst())
+        if (mDateItem.shouldShowYearFirst()) {
             mYear.performClick();
-        else
+        } else {
             mDate.performClick();
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater layoutInflater,
-        ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater layoutInflater,
+                             ViewGroup container, Bundle savedInstanceState) {
 
         View view = layoutInflater.inflate(R.layout.dialog_main, container, false);
 
-        mYear = (TextView) view.findViewById(R.id.year);
-        mDate = (TextView) view.findViewById(R.id.date);
+        mYear = view.findViewById(R.id.year);
+        mDate = view.findViewById(R.id.date);
+        mToday = view.findViewById(R.id.today);
 
+        mYear.setOnClickListener(this);
+        mDate.setOnClickListener(this);
+        mToday.setOnClickListener(this);
         view.findViewById(R.id.done).setOnClickListener(this);
-        view.findViewById(R.id.year).setOnClickListener(this);
-        view.findViewById(R.id.date).setOnClickListener(this);
         view.findViewById(R.id.cancel).setOnClickListener(this);
 
         return view;
@@ -186,19 +200,18 @@ public class DatePicker extends DialogFragment
             return;
         }
 
-        JDF jdf = new JDF();
-        mDateItem.setMaxMonth(jdf.getIranianMonth());
-        mDateItem.setMaxYear(jdf.getIranianYear());
+        mDateItem.setMaxMonth(mTodayDate.getIranianMonth());
+        mDateItem.setMaxYear(mTodayDate.getIranianYear());
 
         if (mDateItem.getMinYear() > mDateItem.getMaxYear())
             mDateItem.setMaxYear(mDateItem.getMaxYear() - 1);
 
-        if (mDateItem.getMonth() > jdf.getIranianMonth())
-            mDateItem.setMonth(jdf.getIranianMonth());
-        if (mDateItem.getDay() > jdf.getIranianDay())
-            mDateItem.setDay(jdf.getIranianDay());
-        if (mDateItem.getYear() > jdf.getIranianYear())
-            mDateItem.setYear(jdf.getIranianYear());
+        if (mDateItem.getMonth() > mTodayDate.getIranianMonth())
+            mDateItem.setMonth(mTodayDate.getIranianMonth());
+        if (mDateItem.getDay() > mTodayDate.getIranianDay())
+            mDateItem.setDay(mTodayDate.getIranianDay());
+        if (mDateItem.getYear() > mTodayDate.getIranianYear())
+            mDateItem.setYear(mTodayDate.getIranianYear());
     }
 
     @Override
@@ -206,6 +219,9 @@ public class DatePicker extends DialogFragment
         if (v.getId() == R.id.year) {
             showYears();
         } else if (v.getId() == R.id.date) {
+            showMonths();
+        } else if (v.getId() == R.id.today) {
+            mDateItem.setDate(new JDF());
             showMonths();
         } else if (v.getId() == R.id.done) {
             if (mCallBack != null) {
@@ -221,35 +237,35 @@ public class DatePicker extends DialogFragment
         mDate.setSelected(true);
         mYear.setSelected(false);
         switchFragment(MonthFragment.newInstance(DatePicker.this,
-            mDateItem.getMaxMonth()));
+                mDateItem.getMaxMonth()));
     }
 
     private void showYears() {
         mYear.setSelected(true);
         mDate.setSelected(false);
         switchFragment(YearFragment.newInstance(DatePicker.this,
-            mDateItem.getMinYear(), mDateItem.getMaxYear()));
+                mDateItem.getMinYear(), mDateItem.getMaxYear()));
     }
 
     private void onDone() {
         mCallBack.onDateSet(mBuilder.id, mDateItem.getCalendar(),
-            mDateItem.getDay(), mDateItem.getMonth(), mDateItem.getYear());
+                mDateItem.getDay(), mDateItem.getMonth(), mDateItem.getYear());
     }
 
     void switchFragment(Fragment fragment) {
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.fade_in,
-            android.R.anim.fade_out);
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        fragment.setRetainInstance(this.getRetainInstance());
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.frame_container, fragment)
+                .commit();
         updateDisplay();
     }
 
     public void updateDisplay() {
+        mToday.setVisibility(isToday() ? View.GONE : View.VISIBLE);
         mYear.setText(String.valueOf(mDateItem.getYear()));
-        mDate.setText(String.format(Locale.US, "%s ، %d %s",
-            getDayName(), mDateItem.getDay(), getMonthName()));
+        mDate.setText(String.format(Locale.US, "%s، %d %s",
+                getDayName(), mDateItem.getDay(), getMonthName()));
     }
 
     /**
@@ -276,10 +292,10 @@ public class DatePicker extends DialogFragment
     /**
      * @param day   Iranian day
      * @param month Iranian month
-     * @param year   Iranian year
+     * @param year  Iranian year
      */
     @Override
-    public void setDay(int day, int month , int year) {
+    public void setDay(int day, int month, int year) {
         mDateItem.setDay(day);
         mDateItem.setMonth(month);
         mDateItem.setYear(year);
@@ -302,11 +318,11 @@ public class DatePicker extends DialogFragment
     public void setYear(int year) {
         mDateItem.setYear(year);
         // check if user chosen day is 30 esfand and whether the new chosen year is Kabise or not
-        if(!JDF.isLeapYear(year)&&mDateItem.getMonth()==12&&mDateItem.getDay()==30){
+        if (!JDF.isLeapYear(year) && mDateItem.getMonth() == 12 && mDateItem.getDay() == 30) {
             mDateItem.setDay(29);
         }
         updateDisplay();
-        if(mDateItem.shouldCloseYearAutomatically())
+        if (mDateItem.shouldCloseYearAutomatically())
             showMonths();
     }
 
@@ -347,9 +363,11 @@ public class DatePicker extends DialogFragment
 
     /**
      * used for preventing the calendar to show future dates
+     *
      * @return returns current year according to user device time
      */
-    @Override public int getCurrentYear() {
+    @Override
+    public int getCurrentYear() {
         return mDateItem.getCurrentYear();
     }
 
@@ -373,5 +391,11 @@ public class DatePicker extends DialogFragment
         if (mMonths == null)
             mMonths = getResources().getStringArray(R.array.persian_months);
         return mMonths;
+    }
+
+    private Boolean isToday() {
+        return mDateItem.getYear() == mTodayDate.getIranianYear() &&
+                mDateItem.getMonth() == mTodayDate.getIranianMonth() &&
+                mDateItem.getDay() == mTodayDate.getIranianDay();
     }
 }

@@ -1,46 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:ignore="ContentDescription">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    >
+    android:layoutDirection="ltr"
+    tools:ignore="ContentDescription,UnusedAttribute">
 
     <ImageView
         android:id="@+id/before"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/BeforeButton"
-        android:scaleType="center"/>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_navigate_before"
+        android:tint="?android:textColor"/>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:layout_alignBottom="@id/next"
+        android:layout_alignTop="@id/next"
         android:layout_gravity="center"
-        android:textColor="?android:textColorPrimary"/>
+        android:layout_toEndOf="@id/before"
+        android:layout_toLeftOf="@id/next"
+        android:layout_toRightOf="@id/before"
+        android:layout_toStartOf="@id/next"
+        android:gravity="center"
+        android:textColor="?android:textColorPrimary"
+        tools:text="خرداد"/>
+
     <ImageView
         android:id="@+id/next"
-        style="@style/NextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="center"/>
-
-
-</LinearLayout>
-
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="8dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_navigate_next"
+        android:tint="?android:textColor"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
-        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"/>
-
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:scaleX="-1"/>
+</RelativeLayout>

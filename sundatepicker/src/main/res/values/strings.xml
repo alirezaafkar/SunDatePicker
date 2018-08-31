@@ -2,4 +2,5 @@
     <string name="app_name">SunDatePicker</string>
     <string name="ok_btn">تائید</string>
     <string name="cancel_btn">انصراف</string>
+    <string name="today">امروز</string>
 </resources>

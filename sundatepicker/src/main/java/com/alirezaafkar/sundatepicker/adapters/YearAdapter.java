@@ -1,15 +1,15 @@
 package com.alirezaafkar.sundatepicker.adapters;
 
-import android.annotation.SuppressLint;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.alirezaafkar.sundatepicker.interfaces.DateInterface;
-import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.R;
+import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.components.SquareTextView;
+import com.alirezaafkar.sundatepicker.interfaces.DateInterface;
 
 /**
  * Created by Alireza Afkar on 2/11/16 AD.
@@ -41,16 +41,16 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.ViewHolder> {
         return 0;
     }
 
-    @SuppressLint("InflateParams")
+    @NonNull
     @Override
-    public YearAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public YearAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_year, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(YearAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull YearAdapter.ViewHolder holder, int position) {
         holder.mTextView.setText(String.valueOf(mYears[position]));
         holder.mTextView.setSelected(isSelected(position));
         holder.mTextView.setChecked(isThisYear(position));
@@ -64,9 +64,9 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private SquareTextView mTextView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            mTextView = (SquareTextView) itemView.findViewById(R.id.text);
+            mTextView = itemView.findViewById(R.id.text);
             mTextView.setOnClickListener(this);
         }
 
