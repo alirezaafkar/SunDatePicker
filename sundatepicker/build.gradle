@@ -2,12 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.novoda.bintray-release'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 27
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 25
+        minSdkVersion 14
+        targetSdkVersion 27
         versionCode 208
         versionName "2.0.8"
     }
@@ -26,12 +25,18 @@ publish {
     groupId = 'com.alirezaafkar'
     artifactId = 'sundatepicker'
     uploadName = 'SunDatePicker'
+    desc = 'Date picker for Iranian calendar'
     website = 'https://github.com/alirezaafkar/sundatepicker'
 }
 
+ext {
+    support_version = '27.1.0'
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:recyclerview-v7:25.3.1'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation 'junit:junit:4.12'
+
+    implementation 'com.android.support:appcompat-v7:' + support_version
+    implementation 'com.android.support:recyclerview-v7:' + support_version
 }
