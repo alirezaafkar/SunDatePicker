@@ -103,6 +103,14 @@ public class DatePicker extends DialogFragment
         }
 
         /**
+         * @param past false means selecting previous days are disable
+         */
+        public Builder past(boolean past) {
+            dateItem.setPastDisabled(!past);
+            return this;
+        }
+
+        /**
          * @param future false means max date is today
          */
         public Builder future(boolean future) {
@@ -237,7 +245,7 @@ public class DatePicker extends DialogFragment
         mDate.setSelected(true);
         mYear.setSelected(false);
         switchFragment(MonthFragment.newInstance(DatePicker.this,
-                mDateItem.getMaxMonth()));
+                mDateItem.getMaxMonth(), mDateItem.isPastDisabled()));
     }
 
     private void showYears() {

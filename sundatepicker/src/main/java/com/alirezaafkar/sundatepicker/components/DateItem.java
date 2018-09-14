@@ -15,6 +15,7 @@ public class DateItem {
     private int maxMonth;
     private int currentYear;
     private boolean futureDisabled;
+    private boolean pastDisabled;
     private boolean showYearFirst;
     private boolean closeYearAutomatically;
 
@@ -74,6 +75,14 @@ public class DateItem {
 
     public void setMaxYear(int maxYear) {
         this.maxYear = maxYear;
+    }
+
+    public boolean isPastDisabled() {
+        return pastDisabled;
+    }
+
+    public void setPastDisabled(boolean pastDisabled) {
+        this.pastDisabled = pastDisabled;
     }
 
     public boolean isFutureDisabled() {

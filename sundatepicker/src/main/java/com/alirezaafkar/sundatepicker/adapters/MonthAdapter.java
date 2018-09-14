@@ -29,14 +29,16 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
     private int mMaxMonth;
     private DateInterface mCallback;
     private View.OnClickListener mOnClickListener;
+    private boolean pastDisabled;
 
     public MonthAdapter(DateInterface callback, View.OnClickListener onClickListener,
-                        int currentMonth, int maxMonth, int chosenYear) {
+                        int currentMonth, int maxMonth, int chosenYear, boolean pastDisabled) {
         mMaxMonth = maxMonth;
         mCallback = callback;
         mYear = chosenYear;
         mMonth = currentMonth;
         mOnClickListener = onClickListener;
+        this.pastDisabled = pastDisabled;
 
         mToday = new JDF();
         try {
@@ -72,25 +74,37 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         int day = position;
         boolean selected = false;
         boolean clickable = false;
+        float alpha = 1.0F;
 
         int viewType = getItemViewType(position);
 
         if (viewType == TYPE_TITLE) {
-            clickable = false;
-            selected = false;
             text = mCallback.getWeekDays()[position].substring(0, 1);
         } else if (viewType == TYPE_DAY) {
-            clickable = true;
+
+            if (isPast(getDayIndex(position))) {
+                clickable = false;
+                alpha = 0.5F;
+            } else {
+                alpha = 1F;
+                clickable = true;
+            }
+
             day = getDayIndex(position);
             selected = isSelected(day);
             text = String.valueOf(day + 1);
         }
 
+        holder.mTextView.setAlpha(alpha);
         holder.mTextView.setChecked(isToday(day));
         holder.mTextView.setClickable(clickable);
         holder.mTextView.setSelected(selected);
         holder.mTextView.setEnabled(clickable);
         holder.mTextView.setText(text);
+    }
+
+    private boolean isPast(int day) {
+        return pastDisabled && ((mYear < mToday.getIranianYear()) || (mMonth + 1 < mToday.getIranianMonth() && mYear <= mToday.getIranianYear()) || (day + 1 < mToday.getIranianDay() && mMonth + 1 <= mToday.getIranianMonth() && mYear <= mToday.getIranianYear()));
     }
 
     private int getDayIndex(int position) {

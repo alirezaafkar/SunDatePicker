@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements
     private Button mStart;
     private CheckBox mDark;
     private CheckBox mFuture;
+    private CheckBox mPast;
 
     private Date mEndDate;
     private Date mStartDate;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements
         mStart = findViewById(R.id.startDate);
         mDark = findViewById(R.id.darkTheme);
         mFuture = findViewById(R.id.future);
+        mPast = findViewById(R.id.past);
 
         mEndDate = new Date();
         mStartDate = new Date();
@@ -82,11 +84,11 @@ public class MainActivity extends AppCompatActivity implements
                 .Builder()
                 .id(id)
                 .theme(theme)
-                .future(false)
                 .setRetainInstance(true)
                 //.showYearFirst(true)
                 //.closeYearAutomatically(true)
                 //.minYear(1393)
+                .past(mPast.isChecked())
                 .future(mFuture.isChecked());
 
         if (v.getId() == R.id.startDate)
