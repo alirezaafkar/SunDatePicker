@@ -3,4 +3,5 @@
     <string name="ok_btn">تائید</string>
     <string name="cancel_btn">انصراف</string>
     <string name="today">امروز</string>
+    <string name="date_placeholder">"%s، %d %s"</string>
 </resources>

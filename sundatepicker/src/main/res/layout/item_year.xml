@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="@dimen/year_padding">
 
     <com.alirezaafkar.sundatepicker.components.SquareTextView
@@ -12,8 +13,9 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:background="@drawable/item_background"
+        app:backgroundTint="?attr/colorPrimary"
         android:gravity="center"
         android:padding="@dimen/year_padding"
         android:textSize="@dimen/text_x_large"
-        tools:text="1397"/>
+        tools:text="1397" />
 </FrameLayout>

@@ -7,49 +7,51 @@
     android:layoutDirection="ltr"
     tools:ignore="ContentDescription,UnusedAttribute">
 
-    <ImageView
-        android:id="@+id/before"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
-        android:scaleType="center"
-        android:src="@drawable/ic_navigate_before"
-        android:tint="?android:textColor"/>
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/next"
-        android:layout_alignTop="@id/next"
-        android:layout_gravity="center"
-        android:layout_toEndOf="@id/before"
-        android:layout_toLeftOf="@id/next"
-        android:layout_toRightOf="@id/before"
-        android:layout_toStartOf="@id/next"
-        android:gravity="center"
-        android:textColor="?android:textColorPrimary"
-        tools:text="خرداد"/>
-
-    <ImageView
+    <com.alirezaafkar.sundatepicker.components.SquareImageView
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/title"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="@dimen/month_padding_left"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
+        android:scaleType="center"
+        android:src="@drawable/ic_navigate_before"
+        android:tint="?android:textColor" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/DialogTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_toStartOf="@id/before"
+        android:layout_toLeftOf="@id/before"
+        android:layout_toEndOf="@id/next"
+        android:layout_toRightOf="@id/next"
+        android:gravity="center"
+        android:padding="@dimen/title_padding"
+        android:textColor="?android:textColorPrimary"
+        tools:text="خرداد" />
+
+    <com.alirezaafkar.sundatepicker.components.SquareImageView
+        android:id="@+id/before"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/title"
+        android:layout_alignBottom="@+id/title"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/month_padding_right"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:scaleType="center"
         android:src="@drawable/ic_navigate_next"
-        android:tint="?android:textColor"/>
+        android:tint="?android:textColor" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title"
-        android:scaleX="-1"/>
+        android:scaleX="-1" />
 </RelativeLayout>

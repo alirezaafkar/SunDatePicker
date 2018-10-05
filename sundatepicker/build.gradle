@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 27
-        versionCode 209
-        versionName "2.0.9"
+        versionCode 210
+        versionName "2.1.0"
     }
     buildTypes {
         release {
@@ -19,7 +19,7 @@ android {
 }
 
 publish {
-    publishVersion = '2.0.9'
+    publishVersion = '2.1.0'
 
     userOrg = 'alirezaafkar'
     groupId = 'com.alirezaafkar'

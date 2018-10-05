@@ -4,69 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog"
     android:layoutDirection="ltr"
     tools:ignore="UnusedAttribute">
 
     <TextView
         android:id="@+id/year"
         style="@style/DialogTitle"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingBottom="5dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="8dp"
+        android:paddingBottom="0dp"
         android:textSize="@dimen/text_large"
-        tools:text="1397"/>
+        tools:text="1397" />
 
     <TextView
         android:id="@+id/date"
         style="@style/DialogTitle"
+        android:layout_below="@id/year"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/year"
+        android:layout_marginRight="8dp"
         android:paddingTop="0dp"
         android:textSize="@dimen/text_x_large"
         android:textStyle="bold"
-        tools:text="13 خرداد"/>
+        tools:text="13 خرداد" />
 
     <TextView
         android:id="@+id/cancel"
-        style="@style/ButtonStyle"
+        style="@style/SecondaryButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="@string/cancel_btn"/>
+        android:layout_toEndOf="@id/done"
+        android:layout_toRightOf="@id/done"
+        android:text="@string/cancel_btn" />
 
     <TextView
         android:id="@+id/done"
-        style="@style/ButtonStyle"
+        style="@style/PrimaryButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@id/cancel"
-        android:layout_toRightOf="@id/cancel"
-        android:text="@string/ok_btn"/>
+        android:layout_marginLeft="4dp"
+        android:text="@string/ok_btn" />
 
     <TextView
         android:id="@+id/today"
-        style="@style/ButtonStyle"
+        style="@style/PrimaryButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:text="@string/today"/>
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="4dp"
+        android:text="@string/today" />
 
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/done"
-        android:layout_below="@id/date"/>
+        android:layout_below="@id/date" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="3dp"
+        android:layout_height="1dp"
         android:layout_below="@id/date"
-        android:background="@drawable/dialog_shadow"/>
+        android:background="@drawable/dialog_shadow" />
 </RelativeLayout>
