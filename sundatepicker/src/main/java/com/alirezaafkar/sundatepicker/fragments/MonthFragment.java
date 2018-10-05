@@ -25,15 +25,17 @@ import static android.support.v7.widget.RecyclerView.RecycledViewPool;
  */
 public class MonthFragment extends Fragment implements View.OnClickListener {
     private int mMaxMonth;
+    private boolean pastDisabled;
     private TextView mTitle;
     private ViewPager mPager;
     private PagerAdapter mAdapter;
     private DateInterface mCallback;
 
-    public static MonthFragment newInstance(DateInterface callback, int maxMonth) {
+    public static MonthFragment newInstance(DateInterface callback, int maxMonth, boolean pastDisabled) {
         MonthFragment fragment = new MonthFragment();
         fragment.mCallback = callback;
         fragment.mMaxMonth = maxMonth;
+        fragment.pastDisabled = pastDisabled;
         return fragment;
     }
 
@@ -139,7 +141,7 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
                     .inflate(R.layout.layout_recycler_view, container, false);
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setRecycledViewPool(viewPool);
-            MonthAdapter adapter = new MonthAdapter(mCallback, this, month, mMaxMonth, mCurrentYear);
+            MonthAdapter adapter = new MonthAdapter(mCallback, this, month, mMaxMonth, mCurrentYear,pastDisabled);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(adapter);

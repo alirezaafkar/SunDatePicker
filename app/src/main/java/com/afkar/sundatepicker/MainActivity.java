@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements
     private Button mEnd;
     private Button mStart;
     private CheckBox mFuture;
+    private CheckBox mPast;
 
     private Date mEndDate;
     private Date mStartDate;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements
         mEnd = findViewById(R.id.endDate);
         mStart = findViewById(R.id.startDate);
         mFuture = findViewById(R.id.future);
+        mPast = findViewById(R.id.past);
 
         mEndDate = new Date();
         mStartDate = new Date();
@@ -75,8 +77,16 @@ public class MainActivity extends AppCompatActivity implements
         DatePicker.Builder builder = new DatePicker
                 .Builder()
                 .id(id)
+                .theme(theme)
+                .setRetainInstance(true)
+                //.showYearFirst(true)
+                //.closeYearAutomatically(true)
+                //.minYear(1393)
+                .past(mPast.isChecked())
+
                 .future(false)
                 .setRetainInstance(true)
+
                 .future(mFuture.isChecked());
 
         if (v.getId() == R.id.startDate)

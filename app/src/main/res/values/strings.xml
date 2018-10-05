@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="show_feature">نمایش آینده</string>
+    <string name="show_past">انتخاب گذشته</string>
     <string name="dark_theme">پوسته تیره</string>
     <string name="start_date">تاریخ شروع</string>
     <string name="end_date">تاریخ پایان</string>
