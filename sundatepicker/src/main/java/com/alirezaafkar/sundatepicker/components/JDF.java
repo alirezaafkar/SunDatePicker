@@ -34,7 +34,7 @@ public class JDF {
     }
 
     /**
-     * Main: This constructor receives a Gregorian date and initializes the
+     * Main: This constructor receives a Iranian date and initializes the
      * other private members of the class accordingly.
      *
      * @param year  int
@@ -43,7 +43,8 @@ public class JDF {
      * @return
      */
     public JDF(int year, int month, int day) {
-        setGregorianDate(year, month, day);
+        this();
+        setIranianDate(year, month, day);
     }
 
     /**
@@ -82,6 +83,14 @@ public class JDF {
         calendar.add(Calendar.MONTH, 1);
 
         return calendar;
+    }
+
+    public long getTimeInMillis(){
+        try {
+            return getGregorianCalendar(irYear, irMonth, irDay).getTimeInMillis();
+        } catch (ParseException e) {
+            return 0;
+        }
     }
 
     /**
@@ -298,7 +307,7 @@ public class JDF {
      * @param month int
      * @param day   int
      */
-    public void setIranianDate(int year, int month, int day) {
+    public JDF setIranianDate(int year, int month, int day) {
         irYear = year;
         irMonth = month;
         irDay = day;
@@ -306,6 +315,7 @@ public class JDF {
         JDNToIranian();
         JDNToJulian();
         JDNToGregorian();
+        return this;
     }
 
     /**

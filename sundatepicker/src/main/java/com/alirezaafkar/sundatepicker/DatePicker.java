@@ -63,18 +63,23 @@ public class DatePicker extends DialogFragment
             return this;
         }
 
-        public Builder minYear(int minYear) {
-            dateItem.setMinYear(minYear);
+        public Builder minDate(int year, int month, int day) {
+            dateItem.setMinDate(new JDF(year, month, day));
             return this;
         }
 
-        public Builder maxYear(int maxYear) {
-            dateItem.setMaxYear(maxYear);
+        public Builder maxDate(int year, int month, int day) {
+            dateItem.setMaxDate(new JDF(year, month, day));
             return this;
         }
 
-        public Builder maxMonth(int maxMonth) {
-            dateItem.setMaxMonth(maxMonth);
+        public Builder minDate(Calendar calendar) {
+            dateItem.setMinDate(new JDF(calendar));
+            return this;
+        }
+
+        public Builder maxDate(Calendar calendar) {
+            dateItem.setMaxDate(new JDF(calendar));
             return this;
         }
 
@@ -100,22 +105,6 @@ public class DatePicker extends DialogFragment
 
         public Builder date(Calendar calendar) {
             this.dateItem.setDate(new JDF(calendar));
-            return this;
-        }
-
-        /**
-         * @param past false means selecting previous days are disable
-         */
-        public Builder past(boolean past) {
-            dateItem.setPastDisabled(!past);
-            return this;
-        }
-
-        /**
-         * @param future false means max date is today
-         */
-        public Builder future(boolean future) {
-            dateItem.setFutureDisabled(!future);
             return this;
         }
 
@@ -159,7 +148,6 @@ public class DatePicker extends DialogFragment
         super.onCreate(savedInstanceState);
         setRetainInstance(mBuilder.retainInstance);
         setStyle(DialogFragment.STYLE_NO_TITLE, mBuilder.theme);
-
     }
 
     @Override
@@ -178,7 +166,6 @@ public class DatePicker extends DialogFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        checkFuture();
         if (mDateItem.shouldShowYearFirst()) {
             mYear.performClick();
         } else {
@@ -205,26 +192,6 @@ public class DatePicker extends DialogFragment
         return view;
     }
 
-    private void checkFuture() {
-        if (!mDateItem.isFutureDisabled()) {
-            mDateItem.setMaxMonth(0);
-            return;
-        }
-
-        mDateItem.setMaxMonth(mTodayDate.getIranianMonth());
-        mDateItem.setMaxYear(mTodayDate.getIranianYear());
-
-        if (mDateItem.getMinYear() > mDateItem.getMaxYear())
-            mDateItem.setMaxYear(mDateItem.getMaxYear() - 1);
-
-        if (mDateItem.getMonth() > mTodayDate.getIranianMonth())
-            mDateItem.setMonth(mTodayDate.getIranianMonth());
-        if (mDateItem.getDay() > mTodayDate.getIranianDay())
-            mDateItem.setDay(mTodayDate.getIranianDay());
-        if (mDateItem.getYear() > mTodayDate.getIranianYear())
-            mDateItem.setYear(mTodayDate.getIranianYear());
-    }
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.year) {
@@ -247,15 +214,13 @@ public class DatePicker extends DialogFragment
     private void showMonths() {
         mDate.setSelected(true);
         mYear.setSelected(false);
-        switchFragment(MonthFragment.newInstance(DatePicker.this,
-                mDateItem.getMaxMonth(), mDateItem.isPastDisabled()));
+        switchFragment(MonthFragment.newInstance(DatePicker.this));
     }
 
     private void showYears() {
         mYear.setSelected(true);
         mDate.setSelected(false);
-        switchFragment(YearFragment.newInstance(DatePicker.this,
-                mDateItem.getMinYear(), mDateItem.getMaxYear()));
+        switchFragment(YearFragment.newInstance(DatePicker.this));
     }
 
     private void onDone() {
@@ -373,8 +338,6 @@ public class DatePicker extends DialogFragment
     }
 
     /**
-     * used for preventing the calendar to show future dates
-     *
      * @return returns current year according to user device time
      */
     @Override
@@ -408,5 +371,10 @@ public class DatePicker extends DialogFragment
         return mDateItem.getYear() == mTodayDate.getIranianYear() &&
                 mDateItem.getMonth() == mTodayDate.getIranianMonth() &&
                 mDateItem.getDay() == mTodayDate.getIranianDay();
+    }
+
+    @Override
+    public DateItem getDateItem() {
+        return mDateItem;
     }
 }

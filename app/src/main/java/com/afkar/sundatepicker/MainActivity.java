@@ -73,21 +73,22 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         int id = v.getId() == R.id.startDate ? 1 : 2;
+        Calendar minDate = Calendar.getInstance();
+        Calendar maxDate = Calendar.getInstance();
 
-        DatePicker.Builder builder = new DatePicker
-                .Builder()
+        if (mFuture.isChecked()) {
+            maxDate.set(Calendar.YEAR, maxDate.get(Calendar.YEAR) + 10);
+        }
+        if (mPast.isChecked()) {
+            minDate.set(Calendar.YEAR, minDate.get(Calendar.YEAR) - 10);
+        }
+
+        DatePicker.Builder builder = new DatePicker.Builder()
                 .id(id)
-                .theme(theme)
+                .minDate(minDate)
+                .maxDate(maxDate)
                 .setRetainInstance(true)
-                //.showYearFirst(true)
-                //.closeYearAutomatically(true)
-                //.minYear(1393)
-                .past(mPast.isChecked())
-
-                .future(false)
-                .setRetainInstance(true)
-
-                .future(mFuture.isChecked());
+                .setRetainInstance(true);
 
         if (v.getId() == R.id.startDate)
             builder.date(mStartDate.getDay(), mStartDate.getMonth(), mStartDate.getYear());

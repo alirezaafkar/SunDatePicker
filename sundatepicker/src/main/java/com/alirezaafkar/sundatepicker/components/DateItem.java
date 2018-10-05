@@ -10,12 +10,9 @@ public class DateItem {
     private int day;
     private int year;
     private int month;
-    private int maxYear;
-    private int minYear;
-    private int maxMonth;
+    private JDF maxDate;
+    private JDF minDate;
     private int currentYear;
-    private boolean futureDisabled;
-    private boolean pastDisabled;
     private boolean showYearFirst;
     private boolean closeYearAutomatically;
 
@@ -23,10 +20,8 @@ public class DateItem {
         JDF jdf = new JDF();
         currentYear = jdf.getIranianYear();
         setDate(jdf);
-    }
-
-    public DateItem(int day, int month, int year) {
-        setDate(day, month, year);
+        setMaxDate(new JDF(currentYear + 20, 12, 31));
+        setMinDate(new JDF(currentYear - 90, 1, 1));
     }
 
     public int getDay() {
@@ -53,47 +48,6 @@ public class DateItem {
         this.month = month;
     }
 
-    public int getMaxMonth() {
-        return maxMonth;
-    }
-
-    public void setMaxMonth(int maxMonth) {
-        this.maxMonth = maxMonth;
-    }
-
-    public int getMinYear() {
-        return minYear;
-    }
-
-    public void setMinYear(int minYear) {
-        this.minYear = minYear;
-    }
-
-    public int getMaxYear() {
-        return maxYear;
-    }
-
-    public void setMaxYear(int maxYear) {
-        this.maxYear = maxYear;
-    }
-
-    public boolean isPastDisabled() {
-        return pastDisabled;
-    }
-
-    public void setPastDisabled(boolean pastDisabled) {
-        this.pastDisabled = pastDisabled;
-    }
-
-    public boolean isFutureDisabled() {
-        return futureDisabled;
-    }
-
-    public void setFutureDisabled(boolean futureDisabled) {
-        this.futureDisabled = futureDisabled;
-    }
-
-
     public int getCurrentYear() {
         return currentYear;
     }
@@ -105,7 +59,6 @@ public class DateItem {
     public void setShowYearFirst(boolean showYearFirst) {
         this.showYearFirst = showYearFirst;
     }
-
 
     public boolean shouldCloseYearAutomatically() {
         return closeYearAutomatically;
@@ -123,11 +76,22 @@ public class DateItem {
         this.day = day;
         this.year = year;
         this.month = month;
+    }
 
-        if (minYear == 0) {
-            minYear = new JDF().getIranianYear();
-            maxYear = minYear + 10;
-        }
+    public void setMaxDate(JDF maxDate) {
+        this.maxDate = maxDate;
+    }
+
+    public JDF getMaxDate() {
+        return maxDate;
+    }
+
+    public void setMinDate(JDF minDate) {
+        this.minDate = minDate;
+    }
+
+    public JDF getMinDate() {
+        return minDate;
     }
 
     public int getIranianDay() {
@@ -140,8 +104,7 @@ public class DateItem {
     }
 
     public Calendar getCalendar() {
-        JDF jdf = new JDF();
-        jdf.setIranianDate(year, month, day);
+        JDF jdf = new JDF(year, month, day);
         Calendar calendar = Calendar.getInstance();
         calendar.set(jdf.getGregorianYear(),
                 jdf.getGregorianMonth() - 1,

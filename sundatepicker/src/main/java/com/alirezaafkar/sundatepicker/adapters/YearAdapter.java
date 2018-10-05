@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.alirezaafkar.sundatepicker.R;
-import com.alirezaafkar.sundatepicker.components.JDF;
 import com.alirezaafkar.sundatepicker.components.SquareTextView;
 import com.alirezaafkar.sundatepicker.interfaces.DateInterface;
 
@@ -22,7 +21,7 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.ViewHolder> {
     public YearAdapter(DateInterface callback, int[] years) {
         mYears = years;
         mCallback = callback;
-        mCurrentYear = new JDF().getIranianYear();
+        mCurrentYear = callback.getCurrentYear();
     }
 
     private boolean isSelected(int year) {

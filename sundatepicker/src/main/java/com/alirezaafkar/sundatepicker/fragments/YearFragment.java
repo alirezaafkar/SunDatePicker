@@ -18,15 +18,11 @@ import com.alirezaafkar.sundatepicker.adapters.YearAdapter;
  * Created by Alireza Afkar on 2/5/16 AD.
  */
 public class YearFragment extends Fragment {
-    private int mMinYear;
-    private int mMaxYear;
     private DateInterface mCallback;
 
-    public static YearFragment newInstance(DateInterface callback, int minYear, int maxYear) {
+    public static YearFragment newInstance(DateInterface callback) {
         YearFragment fragment = new YearFragment();
         fragment.mCallback = callback;
-        fragment.mMinYear = minYear;
-        fragment.mMaxYear = maxYear;
         return fragment;
     }
 
@@ -53,9 +49,12 @@ public class YearFragment extends Fragment {
     }
 
     private int[] getYears() {
-        int[] years = new int[(mMaxYear - mMinYear) + 1];
+        int maxYear = mCallback.getDateItem().getMaxDate().getIranianYear();
+        int minYear = mCallback.getDateItem().getMinDate().getIranianYear();
+        int[] years = new int[(maxYear - minYear) + 1];
+
         int counter = 0;
-        for (int i = mMinYear; i <= mMaxYear; i++) {
+        for (int i = minYear; i <= maxYear; i++) {
             years[counter++] = i;
         }
         return years;

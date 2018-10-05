@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:checked="true"
-        android:text="@string/show_feature"/>
+        android:text="@string/show_feature" />
 
     <CheckBox
         android:id="@+id/past"
@@ -24,24 +24,17 @@
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:checked="true"
-        android:text="@string/show_past"/>
-
-    <CheckBox
-        android:id="@+id/darkTheme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="@string/dark_theme"/>
+        android:text="@string/show_past" />
 
     <Button
         android:id="@+id/startDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="@string/start_date"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/endDate"
@@ -49,5 +42,5 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/end_date"
-        android:textSize="20sp"/>
+        android:textSize="20sp" />
 </LinearLayout>

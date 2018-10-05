@@ -24,18 +24,14 @@ import static android.support.v7.widget.RecyclerView.RecycledViewPool;
  * Created by Alireza Afkar on 2/5/16 AD.
  */
 public class MonthFragment extends Fragment implements View.OnClickListener {
-    private int mMaxMonth;
-    private boolean pastDisabled;
     private TextView mTitle;
     private ViewPager mPager;
     private PagerAdapter mAdapter;
     private DateInterface mCallback;
 
-    public static MonthFragment newInstance(DateInterface callback, int maxMonth, boolean pastDisabled) {
+    public static MonthFragment newInstance(DateInterface callback) {
         MonthFragment fragment = new MonthFragment();
         fragment.mCallback = callback;
-        fragment.mMaxMonth = maxMonth;
-        fragment.pastDisabled = pastDisabled;
         return fragment;
     }
 
@@ -56,16 +52,10 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
         if (view.getId() == R.id.next) {
             if (++currentItem < mAdapter.getCount()) {
                 mPager.setCurrentItem(currentItem, true);
-            } else { // show next year info
-                if (mMaxMonth > 0 && mAdapter.getYear() == mCallback.getCurrentYear())
-                    return;
-                initPager(mAdapter.getYear() + 1, 0);
             }
         } else if (view.getId() == R.id.before) {
             if (--currentItem >= 0) {
                 mPager.setCurrentItem(currentItem, true);
-            } else { // show last year info
-                initPager(mAdapter.getYear() - 1, 11);
             }
         }
     }
@@ -110,10 +100,7 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
 
         @Override
         public int getCount() {
-            if (mMaxMonth > 0 && mCurrentYear == mCallback.getCurrentYear())
-                return mMaxMonth;
-            else
-                return mCallback.getMonths().length;
+            return mCallback.getMonths().length;
         }
 
         public int getYear() {
@@ -141,7 +128,7 @@ public class MonthFragment extends Fragment implements View.OnClickListener {
                     .inflate(R.layout.layout_recycler_view, container, false);
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setRecycledViewPool(viewPool);
-            MonthAdapter adapter = new MonthAdapter(mCallback, this, month, mMaxMonth, mCurrentYear,pastDisabled);
+            MonthAdapter adapter = new MonthAdapter(mCallback, this, month, mCurrentYear);
             recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 7));
             recyclerView.setHasFixedSize(true);
             recyclerView.setAdapter(adapter);
