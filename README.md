@@ -3,7 +3,7 @@ Date picker for Iranian calendar
 
 ## Screenshots
 
-<img src="/Preview.jpg" width="400" height="400"/>
+<img src="/Preview.jpg"/>
 
 <a href="https://play.google.com/store/apps/details?id=com.afkar.sundatepicker">
   <img alt="Android app on Google Play" src="https://play.google.com/intl/en_us/badges/images/badge_new.png" />
@@ -15,7 +15,7 @@ Date picker for Iranian calendar
 
 ```
 dependencies {
-    compile 'com.alirezaafkar:sundatepicker:2.0.9'
+    compile 'com.alirezaafkar:sundatepicker:2.1.0'
 }
 ```
 
@@ -24,7 +24,8 @@ dependencies {
 ```java
  new DatePicker.Builder()
             .id(id)
-            .theme(theme)
+            .minDate(minDate)
+            .maxDate(minDate)
             .date(initialDate)
             .build(MainActivity.this)
             .show(getSupportFragmentManager(), "");

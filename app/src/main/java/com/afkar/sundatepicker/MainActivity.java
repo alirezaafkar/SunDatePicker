@@ -87,7 +87,6 @@ public class MainActivity extends AppCompatActivity implements
                 .id(id)
                 .minDate(minDate)
                 .maxDate(maxDate)
-                .setRetainInstance(true)
                 .setRetainInstance(true);
 
         if (v.getId() == R.id.startDate)
