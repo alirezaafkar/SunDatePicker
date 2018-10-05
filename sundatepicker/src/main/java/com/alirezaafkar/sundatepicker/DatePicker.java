@@ -1,5 +1,7 @@
 package com.alirezaafkar.sundatepicker;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.StyleRes;
@@ -22,7 +24,6 @@ import com.alirezaafkar.sundatepicker.interfaces.DateSetListener;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 /**
  * Created by Alireza Afkar on 2/5/16 AD.
@@ -150,6 +151,7 @@ public class DatePicker extends DialogFragment
         super.onCreate(savedInstanceState);
         setRetainInstance(mBuilder.retainInstance);
         setStyle(DialogFragment.STYLE_NO_TITLE, mBuilder.theme);
+
     }
 
     @Override
@@ -161,6 +163,7 @@ public class DatePicker extends DialogFragment
             params.width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
             params.height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
             window.setAttributes((WindowManager.LayoutParams) params);
+            window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
 
@@ -264,7 +267,7 @@ public class DatePicker extends DialogFragment
     public void updateDisplay() {
         mToday.setVisibility(isToday() ? View.GONE : View.VISIBLE);
         mYear.setText(String.valueOf(mDateItem.getYear()));
-        mDate.setText(String.format(Locale.US, "%s، %d %s",
+        mDate.setText(getString(R.string.date_placeholder,
                 getDayName(), mDateItem.getDay(), getMonthName()));
     }
 

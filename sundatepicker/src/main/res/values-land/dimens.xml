@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="dialog_width">440dp</dimen>
-    <dimen name="dialog_height">340dp</dimen>
-    <dimen name="list_padding">30dp</dimen>
+    <dimen name="dialog_height">270dp</dimen>
+    <dimen name="list_padding">2dp</dimen>
+    <dimen name="title_padding">4dp</dimen>
+    <dimen name="day_padding">4dp</dimen>
+    <dimen name="month_padding_left">18dp</dimen>
+    <dimen name="month_padding_right">0dp</dimen>
 </resources>

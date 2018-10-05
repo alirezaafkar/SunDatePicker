@@ -6,9 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clipToPadding="false"
+    android:overScrollMode="never"
     android:paddingLeft="@dimen/list_padding"
     android:paddingRight="@dimen/list_padding"
     tools:itemCount="30"
     tools:layoutManager="android.support.v7.widget.GridLayoutManager"
     tools:listitem="@layout/item_day"
-    tools:spanCount="7"/>
+    tools:spanCount="7" />

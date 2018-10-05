@@ -3,7 +3,6 @@ package com.afkar.sundatepicker;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.StyleRes;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements
         OnClickListener, DateSetListener {
     private Button mEnd;
     private Button mStart;
-    private CheckBox mDark;
     private CheckBox mFuture;
 
     private Date mEndDate;
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements
 
         mEnd = findViewById(R.id.endDate);
         mStart = findViewById(R.id.startDate);
-        mDark = findViewById(R.id.darkTheme);
         mFuture = findViewById(R.id.future);
 
         mEndDate = new Date();
@@ -74,19 +71,12 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         int id = v.getId() == R.id.startDate ? 1 : 2;
-        @StyleRes int theme = mDark.isChecked()
-                ? R.style.DarkDialogTheme
-                : R.style.DialogTheme;
 
         DatePicker.Builder builder = new DatePicker
                 .Builder()
                 .id(id)
-                .theme(theme)
                 .future(false)
                 .setRetainInstance(true)
-                //.showYearFirst(true)
-                //.closeYearAutomatically(true)
-                //.minYear(1393)
                 .future(mFuture.isChecked());
 
         if (v.getId() == R.id.startDate)
