@@ -1,5 +1,7 @@
 # SunDatePicker
-Date picker for Iranian calendar 
+Date picker for Jalali calendar.
+
+Jalali is the official calendar used in Iran and Aghanistan.
 
 ## Screenshots
 
