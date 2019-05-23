@@ -117,7 +117,7 @@ public class MonthAdapter extends RecyclerView.Adapter<MonthAdapter.ViewHolder> 
         int days = 30;
         if (mMonth <= 6)
             days = 31;
-        if (mMonth == 11 && !JDF.isLeapYear(mYear))
+        if (mMonth == 12 && !JDF.isLeapYear(mYear))
             days = 29;
 
         return days + 7 + mStartDay;
