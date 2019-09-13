@@ -15,7 +15,7 @@ Date picker for Iranian calendar
 
 ```
 dependencies {
-    compile 'com.alirezaafkar:sundatepicker:2.1.2'
+    implementation 'com.alirezaafkar:sundatepicker:2.1.2'
 }
 ```
 
