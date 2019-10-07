@@ -155,10 +155,10 @@ public class DatePicker extends DialogFragment
         super.onStart();
         Window window = getDialog().getWindow();
         if (window != null) {
-            ViewGroup.LayoutParams params = window.getAttributes();
+            WindowManager.LayoutParams params = window.getAttributes();
             params.width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
             params.height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-            window.setAttributes((WindowManager.LayoutParams) params);
+            window.setAttributes(params);
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
