@@ -3,10 +3,6 @@ package com.alirezaafkar.sundatepicker;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.StyleRes;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +10,11 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.StyleRes;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.alirezaafkar.sundatepicker.components.DateItem;
 import com.alirezaafkar.sundatepicker.components.JDF;
@@ -53,9 +54,11 @@ public class DatePicker extends DialogFragment
         private DateItem dateItem;
         private boolean retainInstance;
 
+
         public Builder() {
             dateItem = new DateItem();
             theme = R.style.DialogTheme;
+
         }
 
         public Builder id(int id) {
@@ -85,6 +88,11 @@ public class DatePicker extends DialogFragment
 
         public Builder date(JDF jdf) {
             this.dateItem.setDate(jdf);
+            return this;
+        }
+
+        public Builder showTodayButton(boolean isShowTodayButton) {
+            this.dateItem.setShowTodayButton(isShowTodayButton);
             return this;
         }
 
@@ -179,9 +187,9 @@ public class DatePicker extends DialogFragment
 
         View view = layoutInflater.inflate(R.layout.dialog_main, container, false);
 
-        mYear = view.findViewById(R.id.year);
-        mDate = view.findViewById(R.id.date);
-        mToday = view.findViewById(R.id.today);
+        mYear = (TextView) view.findViewById(R.id.year);
+        mDate = (TextView) view.findViewById(R.id.date);
+        mToday = (TextView) view.findViewById(R.id.today);
 
         mYear.setOnClickListener(this);
         mDate.setOnClickListener(this);
@@ -238,11 +246,13 @@ public class DatePicker extends DialogFragment
     }
 
     public void updateDisplay() {
-        mToday.setVisibility(isToday() ? View.GONE : View.VISIBLE);
+        mToday.setVisibility(mDateItem.isShowTodayButton() ? View.VISIBLE : View.GONE);
+//        mToday.setVisibility(isToday() ? View.GONE : View.VISIBLE);
         mYear.setText(String.valueOf(mDateItem.getYear()));
         mDate.setText(getString(R.string.date_placeholder,
                 getDayName(), mDateItem.getDay(), getMonthName()));
     }
+
 
     /**
      * @return Persian month name

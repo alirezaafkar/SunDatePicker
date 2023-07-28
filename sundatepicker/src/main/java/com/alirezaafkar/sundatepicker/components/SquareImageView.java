@@ -1,8 +1,9 @@
 package com.alirezaafkar.sundatepicker.components;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * Created by Alireza Afkar on 2/11/16 AD.
