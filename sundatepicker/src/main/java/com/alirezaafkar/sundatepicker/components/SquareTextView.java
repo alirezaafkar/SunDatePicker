@@ -1,9 +1,10 @@
 package com.alirezaafkar.sundatepicker.components;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.widget.Checkable;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * Created by Alireza Afkar on 2/11/16 AD.

@@ -1,10 +1,12 @@
 package com.alirezaafkar.sundatepicker.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.alirezaafkar.sundatepicker.R;
 import com.alirezaafkar.sundatepicker.components.SquareTextView;
@@ -65,7 +67,7 @@ public class YearAdapter extends RecyclerView.Adapter<YearAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            mTextView = itemView.findViewById(R.id.text);
+            mTextView = (SquareTextView) itemView.findViewById(R.id.text);
             mTextView.setOnClickListener(this);
         }
 

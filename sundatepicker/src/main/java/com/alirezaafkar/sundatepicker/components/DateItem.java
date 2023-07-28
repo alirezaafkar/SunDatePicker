@@ -15,6 +15,7 @@ public class DateItem {
     private int currentYear;
     private boolean showYearFirst;
     private boolean closeYearAutomatically;
+    private boolean isShowTodayButton;
 
     public DateItem() {
         JDF jdf = new JDF();
@@ -110,5 +111,13 @@ public class DateItem {
                 jdf.getGregorianMonth() - 1,
                 jdf.getGregorianDay());
         return calendar;
+    }
+
+    public boolean isShowTodayButton() {
+        return isShowTodayButton;
+    }
+
+    public void setShowTodayButton(boolean showTodayButton) {
+        isShowTodayButton = showTodayButton;
     }
 }
